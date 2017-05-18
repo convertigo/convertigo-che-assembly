@@ -51,7 +51,7 @@ if (convertigoMachineUrl !== null) {
 var localhostUrl = "http://localhost:18080";
 mainViewId.appendChild(label);
 mainViewId.appendChild(input);
-if (localStorage.getItem(key) === convertigoMachineUrl) {
+if (localStorage.getItem(key) === convertigoMachineUrl && getConvertigoMachineUrl() !== localhostUrl) {
 	var intMsg = document.createElement("p");
 	intMsg.textContent = "NOTE: The entered URL refers to the Convertigo server machine (stack).";
 	intMsg.style = "color: red";
@@ -80,7 +80,7 @@ connectLocalHostBtn.onclick = function () {
 }
 mainViewId.appendChild(connectLocalHostBtn);
 
-if (convertigoMachineUrl !== null) {
+if (convertigoMachineUrl !== null && getConvertigoMachineUrl() !== localhostUrl) {
 	mainViewId.appendChild(document.createElement("hr"));
 	var orMsg = document.createElement("p");
 	orMsg.textContent = "Or you can directly connect CHE to the Convertigo server machine (stack)";
