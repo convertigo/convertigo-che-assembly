@@ -1,0 +1,3 @@
+IMAGE_INIT=convertigo/convertigo-che-init:5.10.0
+IMAGE_CHE=convertigo/convertigo-che-server:5.10.0
+IMAGE_COMPOSE=docker/compose:1.8.1
