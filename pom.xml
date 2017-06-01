@@ -96,6 +96,11 @@
                 <artifactId>che-plugin-convertigo-projects-ide</artifactId>
                 <version>${project.version}</version>
             </dependency>
+    		<dependency>
+                <groupId>com.twinsoft.convertigo.plugin</groupId>
+                <artifactId>che-plugin-convertigo-filemanager-ide</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.eclipse.che</groupId>
                 <artifactId>che-parent</artifactId>

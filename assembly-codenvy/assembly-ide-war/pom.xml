@@ -44,6 +44,11 @@
             <artifactId>che-plugin-convertigo-projects-ide</artifactId>
             <scope>provided</scope>
         </dependency>
+     	<dependency>
+            <groupId>com.twinsoft.convertigo.plugin</groupId>
+            <artifactId>che-plugin-convertigo-filemanager-ide</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>com.codenvy.onpremises</groupId>
             <artifactId>assembly-ide-war</artifactId>

@@ -24,5 +24,6 @@
         <module>plugin-convertigo-information</module>
 		<module>plugin-convertigo-main</module>
         <module>plugin-convertigo-projects</module>
+        <module>plugin-convertigo-filemanager</module>
     </modules>
 </project>

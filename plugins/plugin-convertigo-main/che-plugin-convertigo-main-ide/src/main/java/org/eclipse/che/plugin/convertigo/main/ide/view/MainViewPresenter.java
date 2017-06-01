@@ -22,13 +22,14 @@ public class MainViewPresenter extends BasePresenter implements MainView.ActionD
 
 	private final MainView mainView;
 	private final AppContext appContext;
+
 	private static String convertigoMachineUrl = null;
 
     @Inject
     public MainViewPresenter(MainView mainView, AppContext appContext) {
     	this.mainView = mainView;
     	this.appContext = appContext;
-    	
+
     	exportGetKeyConvertigoMachineUrl();
     	exportInjectConvertigoCoreScripts();
     	exportGetConvertigoMachineUrl();
@@ -111,7 +112,7 @@ public class MainViewPresenter extends BasePresenter implements MainView.ActionD
     	}
     }-*/;
 
-    public void injectConvertigoCoreScripts(final String convertigoMachineUrl) {
+    private void injectConvertigoCoreScripts(final String convertigoMachineUrl) {
     	final String convertigoCoreUrl = convertigoMachineUrl + "/convertigo/studio/js/core/";
 
         // Inject convertigo.js
