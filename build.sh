@@ -13,7 +13,7 @@ set -u
 . ./build.include
 init "$@"
 
-DEFAULT_MVN_REPO=${HOME}/.m2/repository
+DEFAULT_MVN_REPO=${HOME}/.m2/che-repository
 
 if command -v mvn >/dev/null 2>&1; then
   MVN_REPO=$(mvn help:evaluate -Dexpression=settings.localRepository | grep -E '^([a-zA-Z]:|/)')
