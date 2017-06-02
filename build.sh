@@ -13,7 +13,7 @@ set -u
 . ./build.include
 init "$@"
 
-DEFAULT_MVN_REPO=${HOME}/.m2/che-repository
+DEFAULT_MVN_REPO=${HOME}/.m2/repository
 
 if command -v mvn >/dev/null 2>&1; then
   MVN_REPO=$(mvn help:evaluate -Dexpression=settings.localRepository | grep -E '^([a-zA-Z]:|/)')
@@ -24,7 +24,7 @@ else
 fi
 
 docker_exec run -it --rm --name build-che       \
-       -v "$MVN_REPO:/home/user/.m2/repository" \
+#       -v "$MVN_REPO:/home/user/.m2/repository" \ # disable cache for testing
        -v "$PWD":/home/user/che-build           \
        -w /home/user/che-build                  \
        codenvy/che-dev                          \
