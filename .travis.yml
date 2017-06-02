@@ -1,7 +1,7 @@
 sudo: required
-
+language: generic
 services:
   - docker
 
 script:
-    ./build.sh
+    ./build.sh | grep -v "^Download"
