@@ -4,4 +4,4 @@ services:
   - docker
 
 script:
-    ./build.sh | grep -v "^Download"
+    ./build.sh 2>&1 | grep -v "Download"
