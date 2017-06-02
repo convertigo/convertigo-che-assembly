@@ -35,3 +35,9 @@ docker_exec run -it --rm --name build-che       \
 ./dockerfiles/cli/build.sh
 ./dockerfiles/init/build.sh
 ./dockerfiles/server/build.sh
+
+# Push images
+docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+docker push convertigo/convertigo-che-cli:nightly
+docker push convertigo/convertigo-che-init:nightly
+docker push convertigo/convertigo-che-server:nightly
