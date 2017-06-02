@@ -23,8 +23,9 @@ else
   echo "Maven not detected, mounting local repo at default path: ${DEFAULT_MVN_REPO}";
 fi
 
-#       -v "$MVN_REPO:/home/user/.m2/repository" \ # disable cache for testing
+
 docker_exec run -it --rm --name build-che       \
+       -v "$MVN_REPO:/home/user/.m2/repository" \
        -v "$PWD":/home/user/che-build           \
        -w /home/user/che-build                  \
        codenvy/che-dev                          \
@@ -34,5 +35,3 @@ docker_exec run -it --rm --name build-che       \
 ./dockerfiles/cli/build.sh
 ./dockerfiles/init/build.sh
 ./dockerfiles/server/build.sh
-
-

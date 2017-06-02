@@ -2,6 +2,8 @@ sudo: required
 language: generic
 services:
   - docker
-
+cache:
+  directories:
+  - $HOME/.m2
 script:
     ./build.sh 2>&1 | grep -v "Download"
