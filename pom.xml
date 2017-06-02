@@ -166,5 +166,6 @@
     <module>plugins</module>
     <module>assembly-che</module>
     <module>assembly-codenvy</module>
+    <module>ide</module>
   </modules>
 </project>
