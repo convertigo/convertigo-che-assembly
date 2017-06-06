@@ -30,7 +30,7 @@
             <unpack>true</unpack>
             <outputDirectory>stacks</outputDirectory>
             <includes>
-                <include>com.twinsoft.convertigo.che:che-core-ide-stacks</include>
+                <include>com.twinsoft.convertigo:che-core-ide-stacks</include>
             </includes>
             <unpackOptions>
                 <excludes>
