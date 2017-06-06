@@ -25,6 +25,19 @@
                 <include>com.twinsoft.convertigo.che:assembly-ide-war</include>
             </includes>
         </dependencySet>
+		<dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <unpack>true</unpack>
+            <outputDirectory>stacks</outputDirectory>
+            <includes>
+                <include>com.twinsoft.convertigo.che:che-core-ide-stacks</include>
+            </includes>
+            <unpackOptions>
+                <excludes>
+                    <exclude>META-INF/**</exclude>
+                </excludes>
+            </unpackOptions>
+        </dependencySet>
     </dependencySets>
 
     <fileSets>
