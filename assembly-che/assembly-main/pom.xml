@@ -24,6 +24,10 @@
             <artifactId>assembly-ide-war</artifactId>
             <type>war</type>
         </dependency>
+		<dependency>
+            <groupId>com.twinsoft.convertigo</groupId>
+            <artifactId>che-core-ide-stacks</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
