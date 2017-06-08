@@ -2,8 +2,8 @@
    {
       "id":"java-default",
       "creator":"ide",
-      "name":"Java",
-      "description":"Default Java Stack with JDK 8, Maven and Tomcat.",
+      "name":"CUSTOM Java",
+      "description":"CUSTOM Default Java Stack with JDK 8, Maven and Tomcat.",
       "scope":"general",
       "tags":[
          "Java",
