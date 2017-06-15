@@ -21,9 +21,10 @@
     <packaging>pom</packaging>
     <name>Che Plugin :: Parent</name>
     <modules>
-        <module>plugin-convertigo-information</module>
+        <module>plugin-convertigo-properties</module>
 		<module>plugin-convertigo-main</module>
         <module>plugin-convertigo-projects</module>
         <module>plugin-convertigo-filemanager</module>
+        <module>plugin-convertigo-enginelog</module>
     </modules>
 </project>

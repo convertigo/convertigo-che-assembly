@@ -1,7 +1,7 @@
 var key = getKeyConvertigoMachineUrl();
 
 var convertigoMachineUrl = localStorage.getItem(key);
-injectConvertigoCoreScripts(convertigoMachineUrl);
+injectDocReadyAndC8OCoreScripts(convertigoMachineUrl);
 
 var mainViewId = document.getElementById("mainView");
 

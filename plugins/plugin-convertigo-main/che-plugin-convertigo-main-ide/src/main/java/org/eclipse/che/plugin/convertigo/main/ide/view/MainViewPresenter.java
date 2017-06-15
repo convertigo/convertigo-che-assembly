@@ -31,11 +31,11 @@ public class MainViewPresenter extends BasePresenter implements MainView.ActionD
     	this.appContext = appContext;
 
     	exportGetKeyConvertigoMachineUrl();
-    	exportInjectConvertigoCoreScripts();
+    	exportInjectDocReadyAndC8OCoreScripts();
     	exportGetConvertigoMachineUrl();
-    	
+
 		defineConvertigoUrl(getConvertigoMachineUrl());
-    	
+
     	final String jsFile = "init.js";
     	ScriptInjector.fromUrl(GWT.getModuleBaseURL() + jsFile)
 	        .setWindow(ScriptInjector.TOP_WINDOW)
@@ -105,53 +105,79 @@ public class MainViewPresenter extends BasePresenter implements MainView.ActionD
     	}
 	}-*/;
     
-    private native void exportInjectConvertigoCoreScripts() /*-{
+    private native void exportInjectDocReadyAndC8OCoreScripts() /*-{
         var that = this;
-    	$wnd.injectConvertigoCoreScripts = function (convertigoMachineUrl) {
-    		that.@org.eclipse.che.plugin.convertigo.main.ide.view.MainViewPresenter::injectConvertigoCoreScripts(Ljava/lang/String;)(convertigoMachineUrl);
-    	}
+        $wnd.injectDocReadyAndC8OCoreScripts = function (convertigoMachineUrl) {
+            that.@org.eclipse.che.plugin.convertigo.main.ide.view.MainViewPresenter::injectDocReadyAndC8OCoreScripts(Ljava/lang/String;)(convertigoMachineUrl);
+        }
     }-*/;
 
-    private void injectConvertigoCoreScripts(final String convertigoMachineUrl) {
-    	final String convertigoCoreUrl = convertigoMachineUrl + "/convertigo/studio/js/core/";
+    private void injectDocReadyAndC8OCoreScripts(final String convertigoMachineUrl) {
+        final String convertigoStudioJsUrl = convertigoMachineUrl + "/convertigo/studio/js/";
+
+        // First, inject docready.js = $(document).ready() (but native JS function)
+        final String docReadyJsUrl = convertigoStudioJsUrl + "libs/docready.js";
+        ScriptInjector
+            .fromUrl(docReadyJsUrl)
+            .setWindow(ScriptInjector.TOP_WINDOW)
+            .setCallback(new Callback<Void, Exception>() {
+                @Override
+                public void onSuccess(Void result) {
+                    // ... then convertigo.js and main.js
+                    injectC8OCoreScripts(convertigoStudioJsUrl);
+                }
+
+                @Override
+                public void onFailure(Exception reason) {
+                    Window.alert(formatScriptInjectFailure(docReadyJsUrl, convertigoMachineUrl));
+                }
+            })
+            .inject();
+    }
+
+    private void injectC8OCoreScripts(final String convertigoStudioJsUrl) {
+        final String convertigoCoreUrl = convertigoStudioJsUrl + "core/";
 
         // Inject convertigo.js
         final String convertigoJsUrl = convertigoCoreUrl + "convertigo.js";
         ScriptInjector
-        	.fromUrl(convertigoJsUrl)
-        	.setWindow(ScriptInjector.TOP_WINDOW)
-        	.setCallback(new Callback<Void, Exception>() {
-				@Override
-				public void onSuccess(Void result) {
-			        // Inject main.js
-			        final String mainJsUrl = convertigoCoreUrl + "main.js";
-			        ScriptInjector
-			        	.fromUrl(mainJsUrl)
-			        	.setWindow(ScriptInjector.TOP_WINDOW)
-			        	.setCallback(new Callback<Void, Exception>() {
-							@Override
-							public void onSuccess(Void result) {
-							}
-			        		
-							@Override
-							public void onFailure(Exception reason) {
-								Window.alert("Failed to load " + mainJsUrl);
-							}
-						})
-			        	.inject();
-				}
+            .fromUrl(convertigoJsUrl)
+            .setWindow(ScriptInjector.TOP_WINDOW)
+            .setCallback(new Callback<Void, Exception>() {
+                @Override
+                public void onSuccess(Void result) {
+                    // Inject main.js
+                    final String mainJsUrl = convertigoCoreUrl + "main.js";
+                    ScriptInjector
+                        .fromUrl(mainJsUrl)
+                        .setWindow(ScriptInjector.TOP_WINDOW)
+                        .setCallback(new Callback<Void, Exception>() {
+                            @Override
+                            public void onSuccess(Void result) {
+                            }
 
-				@Override
-				public void onFailure(Exception reason) {
-					Window.alert(
-						"Failed to load " + convertigoJsUrl + ", the " + convertigoMachineUrl + " URL might be invalid." +
-						"\nPlease try to enter another URL in the Convertigo URL panel (pattern: http://{hostname}:{port})."
-					);
-				}
-			})
-        	.inject();
+                            @Override
+                            public void onFailure(Exception reason) {
+                                Window.alert(formatScriptInjectFailure(mainJsUrl, convertigoMachineUrl));
+                            }
+                        })
+                        .inject();
+                }
+
+                @Override
+                public void onFailure(Exception reason) {
+                    Window.alert(formatScriptInjectFailure(convertigoJsUrl, convertigoMachineUrl));
+                }
+            })
+            .inject();
     }
-    
+
+    private String formatScriptInjectFailure(String scriptUrl, String convertigoMachineUrl) {
+        return "Failed to load " + scriptUrl + ", the " + convertigoMachineUrl + " URL might be invalid." +
+                "\nPlease try to enter another URL in the Convertigo URL panel (pattern: http://{hostname}:{port})." +
+                "\nThe server might also be unreachable too.";
+    }
+
 	@Override
 	public String getTitle() {
 		// TODO: remove title

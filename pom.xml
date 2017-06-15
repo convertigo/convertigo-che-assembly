@@ -88,7 +88,7 @@
             </dependency>
             <dependency>
                 <groupId>com.twinsoft.convertigo.plugin</groupId>
-                <artifactId>che-plugin-convertigo-information-ide</artifactId>
+                <artifactId>che-plugin-convertigo-properties-ide</artifactId>
                 <version>${project.version}</version>
             </dependency>
 			<dependency>
@@ -104,6 +104,11 @@
     		<dependency>
                 <groupId>com.twinsoft.convertigo.plugin</groupId>
                 <artifactId>che-plugin-convertigo-filemanager-ide</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.twinsoft.convertigo.plugin</groupId>
+                <artifactId>che-plugin-convertigo-enginelog-ide</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
