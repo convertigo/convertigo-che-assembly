@@ -42,11 +42,15 @@
         </dependency>
    		<dependency>
             <groupId>com.twinsoft.convertigo.plugin</groupId>
-            <artifactId>che-plugin-convertigo-filemanager-ide</artifactId>
+            <artifactId>che-plugin-convertigo-texteditors-ide</artifactId>
         </dependency>
 		<dependency>
             <groupId>com.twinsoft.convertigo.plugin</groupId>
             <artifactId>che-plugin-convertigo-enginelog-ide</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.twinsoft.convertigo.plugin</groupId>
+            <artifactId>che-plugin-convertigo-graphiceditors-ide</artifactId>
         </dependency>
         <dependency>
             <groupId>org.eclipse.che</groupId>

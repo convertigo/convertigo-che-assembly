@@ -52,7 +52,7 @@ public class MainViewPresenter extends BasePresenter implements MainView.ActionD
 	        })
 	        .inject();
     }
-    
+
     private MachineEntity getConvertigoMachine() {
     	Iterator<MachineEntity> it = appContext.getActiveRuntime().getMachines().iterator();
     	while (it.hasNext()) {
@@ -63,14 +63,28 @@ public class MainViewPresenter extends BasePresenter implements MainView.ActionD
     	}
     	return null;
     }
-    
+
     private native void exportGetConvertigoMachineUrl() /*-{
     	var that = this;
-    	$wnd.getConvertigoMachineUrl = function () {
+    	$wnd.CheGWTGetConvertigoMachineUrl = function () {
     		return that.@org.eclipse.che.plugin.convertigo.main.ide.view.MainViewPresenter::getConvertigoMachineUrl()();
     	}
     }-*/;
-    
+
+    private native void exportGetKeyConvertigoMachineUrl() /*-{
+        var that = this;
+        $wnd.CheGWTGetKeyConvertigoMachineUrl = function () {
+            return "convertigoMachineUrl";
+        }
+    }-*/;
+
+    private native void exportInjectDocReadyAndC8OCoreScripts() /*-{
+        var that = this;
+        $wnd.CheGWTInjectDocReadyAndC8OCoreScripts = function (convertigoMachineUrl) {
+            that.@org.eclipse.che.plugin.convertigo.main.ide.view.MainViewPresenter::injectDocReadyAndC8OCoreScripts(Ljava/lang/String;)(convertigoMachineUrl);
+        }
+    }-*/;
+
     private String getConvertigoMachineUrl() {
     	if (convertigoMachineUrl == null) {
 	    	MachineEntity convertigoMachine = getConvertigoMachine();
@@ -90,27 +104,13 @@ public class MainViewPresenter extends BasePresenter implements MainView.ActionD
     	
     	return convertigoMachineUrl;
     }
-    
-    private native void exportGetKeyConvertigoMachineUrl() /*-{
-        var that = this;
-    	$wnd.getKeyConvertigoMachineUrl = function () {
-			return "convertigoMachineUrl";
-    	}
-    }-*/;
-    
+
     private native void defineConvertigoUrl(String convertigoUrl) /*-{
-    	var key = $wnd.getKeyConvertigoMachineUrl();
+    	var key = $wnd.CheGWTGetKeyConvertigoMachineUrl();
     	if (localStorage.getItem(key) === null) {
     		localStorage.setItem(key, convertigoUrl);
     	}
 	}-*/;
-    
-    private native void exportInjectDocReadyAndC8OCoreScripts() /*-{
-        var that = this;
-        $wnd.injectDocReadyAndC8OCoreScripts = function (convertigoMachineUrl) {
-            that.@org.eclipse.che.plugin.convertigo.main.ide.view.MainViewPresenter::injectDocReadyAndC8OCoreScripts(Ljava/lang/String;)(convertigoMachineUrl);
-        }
-    }-*/;
 
     private void injectDocReadyAndC8OCoreScripts(final String convertigoMachineUrl) {
         final String convertigoStudioJsUrl = convertigoMachineUrl + "/convertigo/studio/js/";

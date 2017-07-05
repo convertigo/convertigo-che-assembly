@@ -1,7 +1,7 @@
-var key = getKeyConvertigoMachineUrl();
+var key = CheGWTGetKeyConvertigoMachineUrl();
 
 var convertigoMachineUrl = localStorage.getItem(key);
-injectDocReadyAndC8OCoreScripts(convertigoMachineUrl);
+CheGWTInjectDocReadyAndC8OCoreScripts(convertigoMachineUrl);
 
 var mainViewId = document.getElementById("mainView");
 
@@ -36,7 +36,7 @@ connectExtBtn.onclick = function () {
 	}
 };
 
-var convertigoMachineUrl = getConvertigoMachineUrl();
+var convertigoMachineUrl = CheGWTGetConvertigoMachineUrl();
 if (convertigoMachineUrl !== null) {
 	var connectIntBtn = document.createElement("button");
 	connectIntBtn.setAttribute("type", "button");
@@ -51,7 +51,7 @@ if (convertigoMachineUrl !== null) {
 var localhostUrl = "http://localhost:18080";
 mainViewId.appendChild(label);
 mainViewId.appendChild(input);
-if (localStorage.getItem(key) === convertigoMachineUrl && getConvertigoMachineUrl() !== localhostUrl) {
+if (localStorage.getItem(key) === convertigoMachineUrl && CheGWTGetConvertigoMachineUrl() !== localhostUrl) {
 	var intMsg = document.createElement("p");
 	intMsg.textContent = "NOTE: The entered URL refers to the Convertigo server machine (stack).";
 	intMsg.style = "color: red";
@@ -80,7 +80,7 @@ connectLocalHostBtn.onclick = function () {
 }
 mainViewId.appendChild(connectLocalHostBtn);
 
-if (convertigoMachineUrl !== null && getConvertigoMachineUrl() !== localhostUrl) {
+if (convertigoMachineUrl !== null && CheGWTGetConvertigoMachineUrl() !== localhostUrl) {
 	mainViewId.appendChild(document.createElement("hr"));
 	var orMsg = document.createElement("p");
 	orMsg.textContent = "Or you can directly connect CHE to the Convertigo server machine (stack)";

@@ -7,17 +7,17 @@
         <version>5.10.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>che-plugin-convertigo-enginelog-parent</artifactId>
+    <artifactId>che-plugin-convertigo-graphiceditors-parent</artifactId>
     <packaging>pom</packaging>
-    <name>Che Plugin :: Convertigo Engine Log :: Parent</name>
+    <name>Che Plugin :: Convertigo Graphic Editors :: Parent</name>
     <modules>
-        <module>che-plugin-convertigo-enginelog-ide</module>
+        <module>che-plugin-convertigo-graphiceditors-ide</module>
     </modules>
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>com.twinsoft.convertigo.plugin</groupId>
-                <artifactId>che-plugin-convertigo-enginelog-ide</artifactId>
+                <artifactId>che-plugin-convertigo-graphiceditors-ide</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

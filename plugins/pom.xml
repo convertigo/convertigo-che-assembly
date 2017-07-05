@@ -24,7 +24,8 @@
         <module>plugin-convertigo-properties</module>
 		<module>plugin-convertigo-main</module>
         <module>plugin-convertigo-projects</module>
-        <module>plugin-convertigo-filemanager</module>
+        <module>plugin-convertigo-texteditors</module>
         <module>plugin-convertigo-enginelog</module>
+        <module>plugin-convertigo-graphiceditors</module>
     </modules>
 </project>
