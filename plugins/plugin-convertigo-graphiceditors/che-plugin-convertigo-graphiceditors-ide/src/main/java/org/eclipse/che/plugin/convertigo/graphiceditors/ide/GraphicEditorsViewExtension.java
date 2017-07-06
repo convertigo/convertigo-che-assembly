@@ -21,13 +21,19 @@ public class GraphicEditorsViewExtension {
     public GraphicEditorsViewExtension(
             final EditorRegistry editorRegistry,
             final FileTypeRegistry fileTypeRegistry,
+
+            // Sequence
             final @Named("SequenceType") FileType sequenceType,
             final SequenceEditorProvider sequenceEditorProvider,
+
+            // Sql connector
             final @Named("SqlConnectorType") FileType sqlConnectorType,
             final SqlConnectorEditorProvider sqlConnectorEditorProvider) {
+        // Sequence
         fileTypeRegistry.registerFileType(sequenceType);
         editorRegistry.registerDefaultEditor(sequenceType, sequenceEditorProvider);
 
+        // Sql connector
         fileTypeRegistry.registerFileType(sqlConnectorType);
         editorRegistry.registerDefaultEditor(sqlConnectorType, sqlConnectorEditorProvider);
     }

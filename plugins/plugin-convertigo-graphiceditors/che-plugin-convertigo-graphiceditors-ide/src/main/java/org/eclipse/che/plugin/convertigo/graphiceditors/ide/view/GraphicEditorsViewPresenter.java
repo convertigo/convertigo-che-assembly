@@ -16,7 +16,6 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.inject.Inject;
 
-
 public class GraphicEditorsViewPresenter extends AbstractEditorPresenter {
 
     private final GraphicEditorsView graphicEditorsView;

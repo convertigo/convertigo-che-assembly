@@ -17,7 +17,8 @@ public class ShowGraphicEditorsAction extends Action {
     @Inject
     public ShowGraphicEditorsAction(WorkspaceAgent workspaceAgent, GraphicEditorsViewPresenter graphicEditorsViewPresenter) {
         super();
-        
+
+        // It is placed on the right but we don't see it as it's an editor container
         workspaceAgent.openPart(graphicEditorsViewPresenter, PartStackType.TOOLING);
         workspaceAgent.setActivePart(graphicEditorsViewPresenter);
     }

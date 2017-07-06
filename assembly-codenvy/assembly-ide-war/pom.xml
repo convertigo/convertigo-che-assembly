@@ -29,11 +29,6 @@
             <artifactId>codenvy-ide-core</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.twinsoft.convertigo.plugin</groupId>
-            <artifactId>che-plugin-convertigo-properties-ide</artifactId>
-            <scope>provided</scope>
-        </dependency>
 		<dependency>
             <groupId>com.twinsoft.convertigo.plugin</groupId>
             <artifactId>che-plugin-convertigo-main-ide</artifactId>
@@ -41,17 +36,17 @@
         </dependency>
 		<dependency>
             <groupId>com.twinsoft.convertigo.plugin</groupId>
-            <artifactId>che-plugin-convertigo-projects-ide</artifactId>
+            <artifactId>che-plugin-convertigo-maintab-ide</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.twinsoft.convertigo.plugin</groupId>
+            <artifactId>che-plugin-convertigo-secondtab-ide</artifactId>
             <scope>provided</scope>
         </dependency>
      	<dependency>
             <groupId>com.twinsoft.convertigo.plugin</groupId>
             <artifactId>che-plugin-convertigo-texteditors-ide</artifactId>
-            <scope>provided</scope>
-        </dependency>
-		<dependency>
-            <groupId>com.twinsoft.convertigo.plugin</groupId>
-            <artifactId>che-plugin-convertigo-enginelog-ide</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

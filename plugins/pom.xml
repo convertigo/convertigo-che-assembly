@@ -21,11 +21,10 @@
     <packaging>pom</packaging>
     <name>Che Plugin :: Parent</name>
     <modules>
-        <module>plugin-convertigo-properties</module>
 		<module>plugin-convertigo-main</module>
-        <module>plugin-convertigo-projects</module>
+        <module>plugin-convertigo-maintab</module>
+        <module>plugin-convertigo-secondtab</module>
         <module>plugin-convertigo-texteditors</module>
-        <module>plugin-convertigo-enginelog</module>
         <module>plugin-convertigo-graphiceditors</module>
     </modules>
 </project>

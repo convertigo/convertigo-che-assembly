@@ -9,12 +9,12 @@ import com.google.inject.Provider;
 
 public class SqlConnectorEditorProvider implements EditorProvider {
 
-    private Provider<GraphicEditorsViewPresenter> graphicsEditorsPesenter;
+    private Provider<GraphicEditorsViewPresenter> graphicEditorsViewPesenter;
 
     @Inject
-    public SqlConnectorEditorProvider(Provider<GraphicEditorsViewPresenter> graphicEditorsPesenter) {
+    public SqlConnectorEditorProvider(Provider<GraphicEditorsViewPresenter> graphicEditorsViewPesenter) {
         super();
-        this.graphicsEditorsPesenter = graphicEditorsPesenter;
+        this.graphicEditorsViewPesenter = graphicEditorsViewPesenter;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class SqlConnectorEditorProvider implements EditorProvider {
 
     @Override
     public EditorPartPresenter getEditor() {
-        return graphicsEditorsPesenter.get();
+        return graphicEditorsViewPesenter.get();
     }
 
 }
