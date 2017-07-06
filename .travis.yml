@@ -1,6 +1,6 @@
 sudo: required
 language: generic
-group: edge
+#group: edge
 services:
   - docker
 cache:
