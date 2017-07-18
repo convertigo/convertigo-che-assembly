@@ -23,12 +23,21 @@ public class TextEditorsViewExtension {
 	        final MultipleMethodFileIdentifier multipleMethodFileIdentifier) {
 		actionManager.registerAction(ActiveTextEditorsAction.ACTION_ID, activeTextEditorsAction);
 
-        final List<String> contentTypes = new ArrayList<>(2);
-        contentTypes.add("application/javascript");
-        contentTypes.add("text/javascript");
+        final List<String> contentTypes = makeList("application/javascript", "text/javascript");
 
         // Add JS highlight and completion
 		multipleMethodFileIdentifier.registerNewExtension(TextEditorsPrefix.C8O_JSCRIPT_STEP_EDITOR, contentTypes);
 		multipleMethodFileIdentifier.registerNewExtension(TextEditorsPrefix.C8O_JSCRIPT_TRANSACTION_EDITOR, contentTypes);
+
+		// For the moment, add XMl highlight for xsl files
+		multipleMethodFileIdentifier.registerNewExtension("xsl", makeList("application/xml"));
 	}
+
+    private List<String> makeList(final String... strings) {
+        final List<String> result = new ArrayList<>(strings.length);
+        for (String string : strings) {
+            result.add(string);
+        }
+        return result;
+    }
 }

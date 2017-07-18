@@ -7,29 +7,32 @@ import org.eclipse.che.plugin.convertigo.graphiceditors.ide.view.GraphicEditorsV
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 
-public class SqlConnectorEditorProvider implements EditorProvider {
+public class AbstractGraphicEditor implements EditorProvider {
 
     private Provider<GraphicEditorsViewPresenter> graphicEditorsViewPesenter;
+    private String id;
+    private String description;
 
     @Inject
-    public SqlConnectorEditorProvider(Provider<GraphicEditorsViewPresenter> graphicEditorsViewPesenter) {
+    public AbstractGraphicEditor(Provider<GraphicEditorsViewPresenter> graphicEditorsViewPesenter, String id, String description) {
         super();
         this.graphicEditorsViewPesenter = graphicEditorsViewPesenter;
+        this.id = id;
+        this.description = description;
     }
 
     @Override
     public String getId() {
-        return "sqlEditor";
+        return id;
     }
 
     @Override
     public String getDescription() {
-        return "Sql Editor";
+        return description;
     }
 
     @Override
     public EditorPartPresenter getEditor() {
         return graphicEditorsViewPesenter.get();
     }
-
 }

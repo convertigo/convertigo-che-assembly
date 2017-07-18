@@ -36,7 +36,7 @@ public class GraphicEditorsViewPresenter extends AbstractEditorPresenter {
         this.editorAgent = editorAgent;
 
         exportOpenSequenceEditor();
-        exportOpenSqlConnectorEditor();
+        exportOpenConnectorEditor();
     }
 
     @Override
@@ -111,12 +111,65 @@ public class GraphicEditorsViewPresenter extends AbstractEditorPresenter {
         };
     }-*/;
 
-    private native void exportOpenSqlConnectorEditor() /*-{
+    private native void exportOpenConnectorEditor() /*-{
         var that = this;
-        var extension = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::SQL_CONNECTOR_EDITOR_EXTENSION;
-        var event = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsEvent::OPEN_SQL_CONNECTOR_EDITOR;
-        $wnd.CheGWTOpenSqlConnectorEditor = function (projectName, sqlConnectorName) {
-            that.@org.eclipse.che.plugin.convertigo.graphiceditors.ide.view.GraphicEditorsViewPresenter::openGraphicEditor(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)(projectName, sqlConnectorName, "C", extension, event);
+        $wnd.CheGWTOpenConnectorEditor = function (projectName, connectorName, typeEditor) {
+            var extension = null;
+            var event = null;
+            // CICS
+            if (typeEditor === @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::CICS_CONNECTOR_EDITOR_EXTENSION) {
+                extension = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::CICS_CONNECTOR_EDITOR_EXTENSION;
+                event = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsEvent::OPEN_CICS_CONNECTOR_EDITOR;
+            }
+            // Couch DB
+            else if (typeEditor === @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::COUCHDB_CONNECTOR_EDITOR_EXTENSION) {
+                extension = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::COUCHDB_CONNECTOR_EDITOR_EXTENSION;
+                event = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsEvent::OPEN_COUCHDB_CONNECTOR_EDITOR;
+            }
+            // FullSync
+            else if (typeEditor === @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::FULLSYNC_CONNECTOR_EDITOR_EXTENSION) {
+                extension = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::FULLSYNC_CONNECTOR_EDITOR_EXTENSION;
+                event = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsEvent::OPEN_FULLSYNC_CONNECTOR_EDITOR;
+            }
+            // HTML
+            else if (typeEditor === @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::HTML_CONNECTOR_EDITOR_EXTENSION) {
+                extension = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::HTML_CONNECTOR_EDITOR_EXTENSION;
+                event = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsEvent::OPEN_HTML_CONNECTOR_EDITOR;
+            }
+            // HTTP
+            else if (typeEditor === @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::HTTP_CONNECTOR_EDITOR_EXTENSION) {
+                extension = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::HTTP_CONNECTOR_EDITOR_EXTENSION;
+                event = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsEvent::OPEN_HTTP_CONNECTOR_EDITOR;
+            }
+            // Javelin
+            else if (typeEditor === @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::JAVELIN_CONNECTOR_EDITOR_EXTENSION) {
+                extension = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::JAVELIN_CONNECTOR_EDITOR_EXTENSION;
+                event = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsEvent::OPEN_JAVELIN_CONNECTOR_EDITOR;
+            }
+            // Proxy HTTP
+            else if (typeEditor === @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::PROXYHTTP_CONNECTOR_EDITOR_EXTENSION) {
+                extension = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::PROXYHTTP_CONNECTOR_EDITOR_EXTENSION;
+                event = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsEvent::OPEN_PROXYHTTP_CONNECTOR_EDITOR;
+            }
+            // Sap Jco
+            else if (typeEditor === @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::SAPJCO_CONNECTOR_EDITOR_EXTENSION) {
+                extension = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::SAPJCO_CONNECTOR_EDITOR_EXTENSION;
+                event = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsEvent::OPEN_SAPJCO_CONNECTOR_EDITOR;
+            }
+            // Site Clipper
+            else if (typeEditor === @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::SITECLIPPER_CONNECTOR_EDITOR_EXTENSION) {
+                extension = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::SITECLIPPER_CONNECTOR_EDITOR_EXTENSION;
+                event = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsEvent::OPEN_SITECLIPPER_CONNECTOR_EDITOR;
+            }
+            // SQL
+            else if (typeEditor === @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::SQL_CONNECTOR_EDITOR_EXTENSION) {
+                extension = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsExtension::SQL_CONNECTOR_EDITOR_EXTENSION;
+                event = @org.eclipse.che.plugin.convertigo.graphiceditors.ide.common.GraphicEditorsEvent::OPEN_SQL_CONNECTOR_EDITOR;
+            }
+
+            if (extension && event) {
+                that.@org.eclipse.che.plugin.convertigo.graphiceditors.ide.view.GraphicEditorsViewPresenter::openGraphicEditor(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)(projectName, connectorName, "C", extension, event);
+            }
         };
     }-*/;
 
