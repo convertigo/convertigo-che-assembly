@@ -1,5 +1,7 @@
 sudo: required
 language: generic
+dist: trusty
+group: deprecated-2017Q2
 #group: edge
 services:
   - docker

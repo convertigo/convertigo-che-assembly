@@ -1,0 +1,37 @@
+version: 2
+jobs:
+  build:
+    docker:
+     - image: codenvy/che-dev:latest
+    working_directory: /home/user/che-build
+    steps:
+     - checkout
+     - restore_cache:
+         keys:
+           - maven
+     - run:
+         name: Maven build
+         command: mvn clean install 2>&1 | grep -v -e "Download" -e " KB"
+     - save_cache:
+         key: maven
+         paths:
+           - ~/.m2/repository
+     - run:
+         name: Install Docker
+         command: |
+           curl -L https://get.docker.com/builds/Linux/x86_64/docker-17.03.0-ce.tgz | tar xz -C /tmp
+           sudo mv /tmp/docker/* /usr/bin
+     - setup_remote_docker
+     - run:
+         name: Build images
+         command: |
+           dockerfiles/cli/build.sh
+           dockerfiles/init/build.sh
+           dockerfiles/server/build.sh
+     - run:
+         name: Push images
+         command: |
+           docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+           docker push convertigo/convertigo-che-cli:nightly
+           docker push convertigo/convertigo-che-init:nightly
+           docker push convertigo/convertigo-che-server:nightly
