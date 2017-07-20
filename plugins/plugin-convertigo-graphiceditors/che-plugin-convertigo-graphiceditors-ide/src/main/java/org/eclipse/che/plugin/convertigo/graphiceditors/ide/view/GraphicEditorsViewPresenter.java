@@ -79,7 +79,7 @@ public class GraphicEditorsViewPresenter extends AbstractEditorPresenter {
                                 openGraphicEditor(file.get(), project, dboName, idSelector, marker, ext, event);
                             }
                         });
-                });
+                    });
             }
         });
     }
@@ -90,13 +90,15 @@ public class GraphicEditorsViewPresenter extends AbstractEditorPresenter {
 
         // Notify that the editor is opened
         String id = idSelector + "-" + ext;
-        triggerEvent(event, id);
+        String qname = project + "." + dboName;
+        triggerEvent(event, id, qname);
     }
 
-    private native void triggerEvent(String event, String id) /*-{
+    private native void triggerEvent(String event, String id, String qname) /*-{
         var event = new CustomEvent(event, {
             "detail": {
-                "id": id
+                "id": id,
+                "qname": qname
             }
         });
         $doc.dispatchEvent(event);
