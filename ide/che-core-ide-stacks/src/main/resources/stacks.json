@@ -1,80 +1,64 @@
 [
-   {
-      "id":"java-default",
-      "creator":"ide",
-      "name":"CUSTOM Java",
-      "description":"CUSTOM Default Java Stack with JDK 8, Maven and Tomcat.",
-      "scope":"general",
-      "tags":[
-         "Java",
-         "JDK",
-         "Maven",
-         "Tomcat",
-         "Subversion",
-         "Ubuntu",
-         "Git"
-      ],
-      "components":[
-         {
-            "name":"JDK",
-            "version":"1.8.0_45"
-         },
-         {
-            "name":"Maven",
-            "version":"3.2.2"
-         },
-         {
-            "name":"Tomcat",
-            "version":"8.0.24"
-         }
-      ],
-      "source":{
-         "type":"image",
-         "origin":"eclipse/ubuntu_jdk8"
-      },
-      "workspaceConfig":{
-         "environments":{
-            "default":{
-               "machines":{
-                  "dev-machine":{
-                     "agents":[
-                        "org.eclipse.che.exec",
-                        "org.eclipse.che.terminal",
-                        "org.eclipse.che.ws-agent",
-                        "org.eclipse.che.ssh"
-                     ],
-                     "servers":{
-
-                     },
-                     "attributes":{
-                        "memoryLimitBytes":"900000000"
-                     }
-                  }
-               },
-               "recipe":{
-                  "location":"eclipse/ubuntu_jdk8",
-                  "type":"dockerimage"
-               }
+  {
+    "id": "convertigo-default",
+    "creator": "Convertigo",
+    "name": "Convertigo",
+    "description": "Default Convertigo Stack.",
+    "scope": "general",
+    "tags": [
+      "Convertigo"
+    ],
+    "components": [],
+    "source": null,
+    "workspaceConfig": {
+      "environments": {
+        "default": {
+          "machines": {
+            "dev-machine": {
+              "attributes": {
+                "memoryLimitBytes": "2147483648"
+              },
+              "agents": [
+                "org.eclipse.che.ws-agent",
+                "org.eclipse.che.ssh",
+                "org.eclipse.che.terminal"
+              ]
+            },
+            "convertigo": {
+              "attributes": {
+                "memoryLimitBytes": "1610612736"
+              }
+            },
+            "couchdb": {
+              "attributes": {
+                "memoryLimitBytes": "1073741824"
+              }
+            },
+            "mysql": {
+              "attributes": {
+                "memoryLimitBytes": "1073741824"
+              },
+              "agents": [
+                "org.eclipse.che.exec"
+              ]
             }
-         },
-         "name":"default",
-         "defaultEnv":"default",
-         "description":null,
-         "commands":[
-            {
-               "commandLine":"mvn clean install -f ${current.project.path}",
-               "name":"build",
-               "type":"mvn",
-               "attributes":{
-                  "previewUrl":"",
-                  "goal":"Build"
-               }
-            }
-         ]
+          },
+          "recipe": {
+            "content": "version: '2'\nservices:\n  dev-machine:\n    image: codenvy/debian_jre\n  convertigo:\n    image: 'convertigo/convertigo:7.5.0_auto'\n    links:\n      - couchdb\n      - mysql\n    depends_on:\n      - couchdb\n      - mysql\n    environment:\n      - >-\n        JAVA_OPTS= -Dconvertigo.engine.billing.enabled=true\n        -Dconvertigo.engine.billing.persistence.jdbc.username=c8oAnalytics\n        -Dconvertigo.engine.billing.persistence.jdbc.password=c8oAnalytics\n        -Dconvertigo.engine.billing.persistence.jdbc.url=jdbc:mysql://mysql:3306/c8oAnalytics\n        -Dconvertigo.engine.fullsync.couch.username=admin\n        -Dconvertigo.engine.fullsync.couch.password=fullsyncpassword\n    volumes_from:\n      - dev-machine\n    command:\n      - bash\n      - '-c'\n      - ln -sf /projects /workspace/ && /docker-entrypoint.sh convertigo\n  couchdb:\n    image: 'couchdb:1.6.1'\n    environment:\n      - COUCHDB_USER=admin\n      - COUCHDB_PASSWORD=fullsyncpassword\n  mysql:\n    image: mysql\n    environment:\n      - MYSQL_RANDOM_ROOT_PASSWORD=yes\n      - MYSQL_DATABASE=c8oAnalytics\n      - MYSQL_USER=c8oAnalytics\n      - MYSQL_PASSWORD=c8oAnalytics\n",
+            "contentType": "application/x-yaml",
+            "type": "compose"
+          }
+        }
       },
-      "stackIcon":{
-         "name":"type-java.svg",
-         "mediaType":"image/svg+xml"
-      }
-   }
+      "name": "default",
+      "defaultEnv": "default",
+      "description": null,
+      "commands": [],
+      "links": []
+    },
+    "stackIcon": {
+      "name": "type-convertigo.svg",
+      "mediaType": "image/svg+xml"
+    }
+  }
 ]
