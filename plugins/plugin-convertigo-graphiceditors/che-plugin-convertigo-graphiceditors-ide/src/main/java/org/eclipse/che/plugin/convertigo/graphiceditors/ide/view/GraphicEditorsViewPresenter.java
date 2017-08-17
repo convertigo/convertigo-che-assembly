@@ -1,12 +1,15 @@
 package org.eclipse.che.plugin.convertigo.graphiceditors.ide.view;
 
+
 import org.eclipse.che.ide.api.app.AppContext;
 import org.eclipse.che.ide.api.editor.AbstractEditorPresenter;
 import org.eclipse.che.ide.api.editor.EditorAgent;
 import org.eclipse.che.ide.api.editor.EditorAgent.OpenEditorCallback;
 import org.eclipse.che.ide.api.editor.EditorInput;
 import org.eclipse.che.ide.api.parts.WorkspaceAgent;
+import org.eclipse.che.ide.api.resources.Container;
 import org.eclipse.che.ide.api.resources.File;
+import org.eclipse.che.ide.api.resources.Project;
 import org.eclipse.che.ide.api.resources.marker.PresentableTextMarker;
 import org.eclipse.che.ide.resources.impl.ResourceManager;
 import org.vectomatic.dom.svg.ui.SVGResource;
@@ -60,28 +63,47 @@ public class GraphicEditorsViewPresenter extends AbstractEditorPresenter {
     public void activate() {
     }
 
-    private void openGraphicEditor(String project, String dboName, String marker, String ext, String event) {
-        final String idSelector = project + "-" + dboName;
+    private void openGraphicEditor(String projectName, String dboName, String marker, String ext, String event) {
+        final String idSelector = projectName + "-" + dboName;
         final String filePath = idSelector + "." + ext;
 
-        // Get private folder of the project to create a temp file related to the editor
-        resourceManager.getWorkspaceRoot().getContainer(project + "/_private").then(container -> {
-            if (container.isPresent()) {
-                container.get().newFile(filePath, "")
-                    // Create the file if it does not exit
-                    .then(file -> {
-                        openGraphicEditor(file, project, dboName, idSelector, marker, ext, event);
-                    })
-                    // else, just open the related tab editor
-                    .catchError(onRejected -> {
-                        resourceManager.getWorkspaceRoot().getFile(project + "/_private/" + filePath).then((file) -> {
-                            if (file.isPresent()) {
-                                openGraphicEditor(file.get(), project, dboName, idSelector, marker, ext, event);
+        resourceManager.getWorkspaceProjects().then(projects -> {
+            for (Project project : projects) {
+                // Get project
+                if (project.getName().equals(projectName)) {
+                    project.getContainer("_private")
+                        // "_private" folder already exist
+                        .then(privateCont -> {
+                            if (privateCont.isPresent()) {
+                                openGraphicEditor(privateCont.get(), filePath, projectName, dboName, marker, ext, event, idSelector);
                             }
+                        })
+                        // Create "_private" folder if it does not exist
+                        .catchError(onRejected -> {
+                            project.newFolder("_private").then(privateCont -> {
+                                openGraphicEditor((Container) privateCont, filePath, projectName, dboName, marker, ext, event, idSelector);
+                            });
                         });
-                    });
+                    break;
+                }
             }
         });
+    }
+
+    private void openGraphicEditor(Container container, String filePath, String project, String dboName, String marker, String ext, String event, String idSelector) {
+        container.newFile(filePath, "")
+            // Create the file if it does not exit
+            .then(file -> {
+                openGraphicEditor(file, project, dboName, idSelector, marker, ext, event);
+            })
+            // else, just open the related tab editor
+            .catchError(onRejected -> {
+                resourceManager.getWorkspaceRoot().getFile(project + "/_private/" + filePath).then((file) -> {
+                    if (file.isPresent()) {
+                        openGraphicEditor(file.get(), project, dboName, idSelector, marker, ext, event);
+                    }
+                });
+            });
     }
 
     private void openGraphicEditor(File file, String project, String dboName, String idSelector, String marker, String ext, String event) {
